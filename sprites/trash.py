@@ -4,7 +4,7 @@ import os
 import math
 
 class Trash(pygame.sprite.Sprite):
-    def __init__(self, x:int, y:int, angle:float=45, speed:int=5):
+    def __init__(self, x:int, y:int, angle:float=45, speed:int=2):
         self.images = ["Bottle.png", "Plastic_Bag.png", ]
         self.chossen_image = random.choice(self.images)
         self.image_path = os.path.join("assets", self.chossen_image)

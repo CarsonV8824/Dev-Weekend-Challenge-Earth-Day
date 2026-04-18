@@ -32,6 +32,7 @@ Compare Each other's Stats of who Played in the stats tab! Battle to see who has
 - **Pygame** — Game engine and loop
 - **SQLite3** — Data persistence and score tracking
 - **Matplotlib & Seaborn** — Local scoreboards and statistics visualization
+- **Pandas** — Data manipulation for the graphs
 - **GitHub Copilot** — Code assistance, debugging optimization, and UI styling refinement
 
 ## GitHub Copilot Usage

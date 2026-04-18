@@ -9,8 +9,9 @@ from sprites.trash import Trash
 from sprites.turtle import Turtle
 from sprites.player import Player 
 
-def alantic(game_state:dict) -> None:
+def alantic(game_state=None) -> dict:
     pygame.init()
+    
     info = pygame.display.Info()
     SCREEN_WIDTH = info.current_w
     SCREEN_HEIGHT = info.current_h
@@ -36,14 +37,15 @@ def alantic(game_state:dict) -> None:
 
     font = pygame.font.Font(None, 40)
 
-    lives = game_state["lives"]
-    score = game_state["score"]
+    lives = game_state["lives"] if game_state else 3
+    score = game_state["score"] if game_state else 0
 
     wave = 1
     wave_timer = 0
     wave_interval = 15000
 
     win = False
+    closed = False
 
     while running:
         dt = clock.tick(60)  # dt = time since last frame in milliseconds
@@ -58,6 +60,7 @@ def alantic(game_state:dict) -> None:
                     match event.key:
                         case pygame.K_ESCAPE:
                             running = False
+                            closed = True
         
         # Spawn every 2 seconds consistently
         if spawn_timer >= spawn_interval:
@@ -126,20 +129,23 @@ def alantic(game_state:dict) -> None:
 
         pygame.display.flip()  
 
-    if win:
-        # add to stats
-        game_state["score"] += score
-        game_state["lives"] = lives
-        game_state["alantic_wins"] += 1
-    if not win:
-        # reset stats becuase you lost
-        game_state["score"] = 0
-        game_state["lives"] = 3
-        game_state["alantic_wins"]
-    print(game_state)
     pygame.quit()
+    
+    if game_state:
+        if win:
+            # add to stats
+            game_state["score"] += score
+            game_state["lives"] = lives
+            game_state["alantic_wins"] += 1
+        if not win and not closed:
+            # reset stats because you lost
+            game_state["score"] = 0
+            game_state["lives"] = 3
+            game_state["alantic_wins"] = 0
+    else:
+        pass
 
 if __name__ == "__main__":
-    
+    pygame.init()
     alantic()
-    
+    pygame.quit()

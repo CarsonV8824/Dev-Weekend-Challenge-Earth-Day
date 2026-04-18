@@ -1,0 +1,136 @@
+/* ================================
+   GLOBAL WINDOW + WIDGET BASE
+   ================================ */
+
+QWidget {
+    background-color: #02253A;        /* Deep ocean blue */
+    color: #C8F7FF;                   /* Soft aqua text */
+    font-family: "Press Start 2P", "Pixel Operator", monospace;
+    font-size: 12px;
+}
+
+/* ================================
+   BUTTONS — Retro Pixel Sea Theme
+   ================================ */
+
+QPushButton {
+    background-color: #034F6D;        /* Dark teal */
+    border: 2px solid #0ABFD6;        /* Bright aqua border */
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+QPushButton:hover {
+    background-color: #046C8C;        /* Lighter teal hover */
+    border-color: #4DF3FF;            /* Glow effect */
+}
+
+QPushButton:pressed {
+    background-color: #023B52;        /* Deep press */
+    border-color: #0ABFD6;
+}
+
+/* ================================
+   LINE EDITS — Input Fields
+   ================================ */
+
+QLineEdit {
+    background-color: #013044;
+    border: 2px solid #0ABFD6;
+    border-radius: 4px;
+    padding: 4px;
+    color: #C8F7FF;
+}
+
+QLineEdit:focus {
+    border-color: #4DF3FF;
+    background-color: #02425C;
+}
+
+/* ================================
+   COMBO BOXES
+   ================================ */
+
+QComboBox {
+    background-color: #034F6D;
+    border: 2px solid #0ABFD6;
+    border-radius: 4px;
+    padding: 4px;
+    color: #C8F7FF;
+}
+
+QComboBox:hover {
+    border-color: #4DF3FF;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #013044;
+    border: 2px solid #0ABFD6;
+    selection-background-color: #046C8C;
+    selection-color: #C8F7FF;
+}
+
+/* ================================
+   SCROLLBARS — Subtle Sea Glow
+   ================================ */
+
+QScrollBar:vertical {
+    background: #02253A;
+    width: 12px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #046C8C;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #0ABFD6;
+}
+
+QScrollBar::add-line,
+QScrollBar::sub-line {
+    background: none;
+    height: 0px;
+}
+
+/* ================================
+   PROGRESS BAR — “Water Fill” Look
+   ================================ */
+
+QProgressBar {
+    background-color: #013044;
+    border: 2px solid #0ABFD6;
+    border-radius: 4px;
+    text-align: center;
+    color: #C8F7FF;
+}
+
+QProgressBar::chunk {
+    background-color: #0ABFD6;        /* Aqua fill */
+    width: 10px;
+    margin: 1px;
+}
+
+/* ================================
+   SLIDERS — Retro Pixel Sliders
+   ================================ */
+
+QSlider::groove:horizontal {
+    background: #013044;
+    height: 6px;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background: #0ABFD6;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    margin: -4px 0;
+}
+
+QSlider::handle:horizontal:hover {
+    background: #4DF3FF;
+}

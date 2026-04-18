@@ -1,6 +1,5 @@
 import pygame
 import random
-import time
 import math
 import json
 import os
@@ -10,6 +9,8 @@ from sprites.turtle import Turtle
 from sprites.player import Player 
 
 from data.state import state
+
+from oceans.facts import fact_for_pacific
 
 def pacific(game_state:dict) -> dict:
     pygame.init()
@@ -38,20 +39,26 @@ def pacific(game_state:dict) -> dict:
 
     font = pygame.font.Font(None, 40)
 
-    lives = game_state["lives"]
-    score = game_state["score"]
+    lives = game_state["lives"] if game_state else 3
+    score = game_state["score"] if game_state else 0
 
     wave = 1
     wave_timer = 0
     wave_interval = 15000
+
+    # For displaying facts without freezing
+    showing_fact = False
+    fact_timer = 0
+    fact_duration = 5000  # 5 seconds in milliseconds
+    current_fact = ""
 
     win = False
 
     closed = False
     while running:
         dt = clock.tick(60)  # dt = time since last frame in milliseconds
-        spawn_timer += dt
-        wave_timer += dt
+        spawn_timer += dt if not showing_fact else 0
+        wave_timer += dt if not showing_fact else 0
         
         for event in pygame.event.get():
             match event.type:
@@ -64,16 +71,10 @@ def pacific(game_state:dict) -> dict:
                             closed = True
         
         # Spawn every 2 seconds consistently
-        if spawn_timer >= spawn_interval:
+        if spawn_timer >= spawn_interval and not showing_fact:
             trash = Trash(0, random.randint(0, SCREEN_HEIGHT), 45)
             trash_group.add(trash)
             spawn_timer = 0  # Reset timer
-
-        if wave_timer >= wave_interval:
-            wave_interval += 5000
-            wave += 1
-            wave_timer = 0
-            time.sleep(5)
             
 
         turtle = list(tutrle_group)[0]
@@ -100,13 +101,22 @@ def pacific(game_state:dict) -> dict:
             win = True
             running = False
 
-        for trash in trash_group:
-            trash.update(list(tutrle_group)[0].get_coords())
+        # Only update trash if not showing a fact
+        if not showing_fact:
+            for trash in trash_group:
+                trash.update(list(tutrle_group)[0].get_coords())
         tutrle_group.update()
         
         # Update player with screen boundaries
         for player in player_group:
             player.update(SCREEN_WIDTH, SCREEN_HEIGHT)
+        
+        # Update fact timer if currently showing a fact
+        if showing_fact:
+            fact_timer += dt
+            if fact_timer >= fact_duration:
+                showing_fact = False
+                fact_timer = 0
         
         screen.fill("purple")
         stripe_height = SCREEN_HEIGHT // len(screen_colors)
@@ -128,6 +138,21 @@ def pacific(game_state:dict) -> dict:
         time_left_text = font.render(f"Time left: {math.ceil(math.ceil(wave_interval-wave_timer)/1000)}", True, (255,255,255))
         screen.blit(time_left_text, (350, 50))
 
+        
+        if wave_timer >= wave_interval:
+            wave_interval += 5000
+            wave += 1
+            wave_timer = 0
+            showing_fact = True
+            fact_timer = 0
+            current_fact = fact_for_pacific()
+        
+        # Display fact if currently showing one
+        if showing_fact:
+            fun_fact_text = font.render(f"Fact: {current_fact}", True, (255,255,255))
+            text_rect = fun_fact_text.get_rect(center=(SCREEN_WIDTH//2, SCREEN_HEIGHT//2))
+            screen.blit(fun_fact_text, text_rect)
+        
         pygame.display.flip()  
 
     if win:

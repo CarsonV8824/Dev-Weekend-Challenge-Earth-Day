@@ -8,6 +8,8 @@ from sprites.trash import Trash
 from sprites.turtle import Turtle
 from sprites.player import Player 
 
+from oceans.facts import fact_for_alantic
+
 def alantic(game_state=None) -> dict:
     pygame.init()
     
@@ -18,11 +20,6 @@ def alantic(game_state=None) -> dict:
     path = os.path.join("oceans", "json", "alantic.json")
     with open(path, "r") as f:
         screen_colors = json.load(f)
-
-    facts_path = os.path.join("oceans", "json", "facts.json")
-    with open(facts_path, "r") as f:
-        ocean_facts = json.load(f)
-    ocean_facts = ocean_facts["atlantic"]
 
     clock = pygame.time.Clock()
     running = True
@@ -151,7 +148,7 @@ def alantic(game_state=None) -> dict:
             wave_timer = 0
             showing_fact = True
             fact_timer = 0
-            current_fact = random.choice(ocean_facts)["fact"]
+            current_fact = fact_for_alantic()
         
         # Display fact if currently showing one
         if showing_fact:

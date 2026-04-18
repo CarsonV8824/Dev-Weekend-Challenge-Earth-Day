@@ -8,6 +8,7 @@ import threading
 from menus.tab import Tab
 from menus.home import Home
 from menus.map import Map
+from menus.stats import Stats
 
 from oceans.alantic import alantic
 from oceans.pacific import pacific
@@ -43,9 +44,14 @@ class MainWindow(QMainWindow):
         map_page.alantic_map.connect(self.play_alantic)
         map_page.pacific_map.connect(self.play_pacific)
 
-        tab.home_page.connect(lambda: self.stack.setCurrentWidget(self.home_page))
-        tab.map_page.connect(lambda: self.stack.setCurrentWidget(map_page))        
+        stats_page = Stats()
+        self.stack.addWidget(stats_page)  
 
+        tab.home_page.connect(lambda: self.stack.setCurrentWidget(self.home_page))
+        tab.map_page.connect(lambda: self.stack.setCurrentWidget(map_page))   
+        tab.stats_page.connect(lambda: self.stack.setCurrentWidget(stats_page), stats_page.update)
+
+        
         layout.addWidget(self.stack)
         self.setCentralWidget(container)
 

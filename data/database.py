@@ -1,11 +1,13 @@
 import sqlite3
 import os
 
+import pandas as pd
+
 from data.state import state
 
 class Database:
     def __init__(self):
-        self.file_path = os.path.join("data", "Protect_Franklin_The_Turtle.db")
+        self.file_path = os.path.join("data", "Franklin_and_the_Diver.db")
         self.connection = sqlite3.connect(self.file_path)
         self.cursor = self.connection.cursor()
         self.make_tables()
@@ -46,6 +48,31 @@ class Database:
                 "name": data[5]
             }
         return state()
+    
+    @staticmethod
+    def get_top_10_score() -> pd.DataFrame:
+        with Database() as d:
+            d.cursor.execute("""SELECT name, MAX(score) as score FROM game_state GROUP BY name ORDER BY MAX(score) DESC LIMIT 10""")
+            data = d.cursor.fetchall()
+            # Create dataframe directly from fetched data
+            dataframe = pd.DataFrame(data, columns=["names", "scores"])
+        return dataframe
+    
+    @staticmethod
+    def get_top_10_atlantic_wins() -> pd.DataFrame:
+        with Database() as d:
+            d.cursor.execute("""SELECT name, MAX(alantic_wins) as atlantic_wins FROM game_state GROUP BY name ORDER BY MAX(alantic_wins) DESC LIMIT 10""")
+            data = d.cursor.fetchall()
+            dataframe = pd.DataFrame(data, columns=["names", "atlantic wins"])
+        return dataframe
+    
+    @staticmethod
+    def get_top_10_pacific_wins():
+        with Database() as d:
+            d.cursor.execute("""SELECT name, MAX(pacific_wins) as pacific_wins FROM game_state GROUP BY name ORDER BY MAX(pacific_wins) DESC LIMIT 10""")
+            data = d.cursor.fetchall()
+            dataframe = pd.DataFrame(data, columns=["names", "pacific wins"])
+        return dataframe
 
     @staticmethod
     def insert_data(data:dict):

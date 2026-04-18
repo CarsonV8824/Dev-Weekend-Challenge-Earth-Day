@@ -1,0 +1,78 @@
+{
+  "atlantic": [
+    {
+      "fact": "The Atlantic Ocean is the second-largest ocean on Earth, covering approximately 82.4 million square kilometers.",
+      "category": "size"
+    },
+    {
+      "fact": "The Atlantic Ocean is home to the Mid-Atlantic Ridge, an underwater mountain range that stretches about 16,000 kilometers.",
+      "category": "geology"
+    },
+    {
+      "fact": "The deepest point in the Atlantic Ocean is the Milwaukee Deep in the Puerto Rico Trench, at approximately 8,600 meters.",
+      "category": "depth"
+    },
+    {
+      "fact": "The Atlantic Ocean contains about 20% of the world's ocean water.",
+      "category": "volume"
+    },
+    {
+      "fact": "The Atlantic Ocean separates Europe and Africa from North and South America.",
+      "category": "geography"
+    },
+    {
+      "fact": "The Atlantic Ocean is home to diverse marine life including whales, dolphins, sharks, and numerous fish species.",
+      "category": "wildlife"
+    },
+    {
+      "fact": "The North Atlantic Gyre is a major oceanic circulation pattern that creates the famous Sargasso Sea.",
+      "category": "currents"
+    },
+    {
+      "fact": "The Atlantic Ocean receives water from major rivers including the Amazon, Congo, Mississippi, and St. Lawrence.",
+      "category": "hydrology"
+    }
+  ],
+  "pacific": [
+    {
+      "fact": "The Pacific Ocean is the largest and deepest ocean on Earth, covering approximately 165.2 million square kilometers.",
+      "category": "size"
+    },
+    {
+      "fact": "The Pacific Ocean is almost as large as all other oceans combined.",
+      "category": "size"
+    },
+    {
+      "fact": "The Mariana Trench, located in the Pacific Ocean, is the deepest known part of any ocean at approximately 10,994 meters.",
+      "category": "depth"
+    },
+    {
+      "fact": "The Pacific Ocean is home to the Ring of Fire, a region of intense volcanic and seismic activity.",
+      "category": "geology"
+    },
+    {
+      "fact": "The Pacific Ocean contains about 46% of the world's ocean water.",
+      "category": "volume"
+    },
+    {
+      "fact": "The Pacific Ocean is home to diverse marine life including whales, sharks, sea turtles, and countless fish species.",
+      "category": "wildlife"
+    },
+    {
+      "fact": "The Pacific Ocean separates Asia and Australia from North and South America.",
+      "category": "geography"
+    },
+    {
+      "fact": "The Great Barrier Reef, located in the Pacific Ocean off the coast of Australia, is the world's largest coral reef system.",
+      "category": "ecosystems"
+    },
+    {
+      "fact": "The Pacific Ocean has major currents including the Kuroshio Current and the California Current that influence global climate.",
+      "category": "currents"
+    },
+    {
+      "fact": "The Pacific Ocean was named by Portuguese explorer Ferdinand Magellan in the 16th century.",
+      "category": "history"
+    }
+  ]
+}

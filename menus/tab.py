@@ -8,6 +8,8 @@ import sys
 class Tab(QWidget):
     home_page = Signal()
     map_page = Signal()
+    stats_page = Signal()
+    
     def __init__(self):
         super().__init__()
         layout = QHBoxLayout()
@@ -20,3 +22,7 @@ class Tab(QWidget):
         map_page_btn = QPushButton("Map")
         map_page_btn.clicked.connect(self.map_page.emit)
         layout.addWidget(map_page_btn)
+
+        stats_btn = QPushButton("Stats")
+        stats_btn.clicked.connect(self.stats_page.emit)
+        layout.addWidget(stats_btn)

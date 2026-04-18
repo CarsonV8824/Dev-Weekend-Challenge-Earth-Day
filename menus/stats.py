@@ -49,7 +49,7 @@ class Stats(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.figure = Figure(figsize=(5,4), dpi=100)
+        self.figure = Figure(figsize=(10, 8), dpi=100)
         self.canvas = FigureCanvas(self.figure)
 
         layout = QVBoxLayout()
@@ -57,49 +57,36 @@ class Stats(QWidget):
         self.setLayout(layout)
 
         self.ax1 = self.figure.add_subplot(221)
-        self.score_data = Database.get_top_10_score()
-        sns.barplot(data=self.score_data, x="names", y="scores", ax=self.ax1)
-        self.ax1.set_title("Top 10 Scores")
-        self.ax1.set_xlabel('')
-
         self.ax2 = self.figure.add_subplot(222)
-        self.alantic_wins = Database.get_top_10_atlantic_wins()
-        sns.barplot(data=self.alantic_wins, x="names", y="atlantic_wins", ax=self.ax2)
-        self.ax2.set_title("Top 10 Alantic Wins")
-        self.ax2.set_xlabel('')
-
         self.ax3 = self.figure.add_subplot(223)
-        self.pacific_data = Database.get_top_10_pacific_wins()
-        sns.barplot(data=self.pacific_data, x="names", y="pacific_wins", ax=self.ax3)
-        self.ax3.set_title("Top 10 Pacific Wins")
-        self.ax3.set_xlabel('')
 
-        self.canvas.draw()
+        self.refresh_charts()
 
-    def update(self):
+    def refresh_charts(self):
+        """Refresh all chart data and redraw."""
         self.ax1.clear()
-        self.ax2.clear()
-        self.ax3.clear()
-
-        self.ax1 = self.figure.add_subplot(221)
         self.score_data = Database.get_top_10_score()
         sns.barplot(data=self.score_data, x="names", y="scores", ax=self.ax1)
         self.ax1.set_title("Top 10 Scores")
-        self.ax1.set_xlabel('')
+        self.ax1.tick_params(axis='x', rotation=45)
 
-        self.ax2 = self.figure.add_subplot(222)
+        self.ax2.clear()
         self.alantic_wins = Database.get_top_10_atlantic_wins()
         sns.barplot(data=self.alantic_wins, x="names", y="atlantic wins", ax=self.ax2)
-        self.ax2.set_title("Top 10 Alantic Wins")
-        self.ax2.set_xlabel('')
+        self.ax2.set_title("Top 10Atlantic Wins")
+        self.ax2.tick_params(axis='x', rotation=45)
 
-        self.ax3 = self.figure.add_subplot(223)
+        self.ax3.clear()
         self.pacific_data = Database.get_top_10_pacific_wins()
         sns.barplot(data=self.pacific_data, x="names", y="pacific wins", ax=self.ax3)
         self.ax3.set_title("Top 10 Pacific Wins")
-        self.ax3.set_xlabel('')
+        self.ax3.tick_params(axis='x', rotation=45)
 
+        self.figure.tight_layout()
         self.canvas.draw()
+
+    def update(self):
+        self.refresh_charts()
 
 
 

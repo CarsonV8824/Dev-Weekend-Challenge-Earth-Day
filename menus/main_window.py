@@ -13,9 +13,12 @@ from menus.stats import Stats
 from oceans.alantic import alantic
 from oceans.pacific import pacific
 
+from data.database import Database
+from data.state import state
+
 class MainWindow(QMainWindow):
-    def __init__(self, game_state):
-        self.game_state = game_state
+    def __init__(self, game_state:dict):
+        self.game_state:dict = game_state
         self.home_page = None
         self.stack = None
         self.game_thread = None
@@ -37,6 +40,7 @@ class MainWindow(QMainWindow):
         self.stack = QStackedWidget()
 
         self.home_page = Home()
+        self.home_page.name_submitted.connect(self.update_game_state)
         self.stack.addWidget(self.home_page)
 
         map_page = Map()
@@ -49,7 +53,7 @@ class MainWindow(QMainWindow):
 
         tab.home_page.connect(lambda: self.stack.setCurrentWidget(self.home_page))
         tab.map_page.connect(lambda: self.stack.setCurrentWidget(map_page))   
-        tab.stats_page.connect(lambda: self.stack.setCurrentWidget(stats_page), stats_page.update)
+        tab.stats_page.connect(lambda: (self.stack.setCurrentWidget(stats_page), stats_page.update()))
 
         
         layout.addWidget(self.stack)
@@ -70,3 +74,17 @@ class MainWindow(QMainWindow):
         
         self.game_thread = threading.Thread(target=pacific, args=(self.game_state,), daemon=False)
         self.game_thread.start()
+    
+    def update_game_state(self, name: str):
+        """Update game_state with player data when name is submitted."""
+        
+        
+        existing_data = Database.get_data_by_name(name)
+        if existing_data and existing_data["name"] == name:
+            # Player exists, use existing data
+            self.game_state.update(existing_data)
+        else:
+            # New player, create and save to database
+            new_data = state(name)
+            self.game_state.update(new_data)
+            Database.insert_data(new_data)

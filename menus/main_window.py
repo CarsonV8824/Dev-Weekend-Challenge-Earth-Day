@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
         self.home_page = None
         self.stack = None
         self.game_thread = None
+        self.stats_page = None
 
         super().__init__()
 
@@ -48,12 +49,12 @@ class MainWindow(QMainWindow):
         map_page.alantic_map.connect(self.play_alantic)
         map_page.pacific_map.connect(self.play_pacific)
 
-        stats_page = Stats()
-        self.stack.addWidget(stats_page)  
+        self.stats_page = Stats()
+        self.stack.addWidget(self.stats_page)  
 
         tab.home_page.connect(lambda: self.stack.setCurrentWidget(self.home_page))
         tab.map_page.connect(lambda: self.stack.setCurrentWidget(map_page))   
-        tab.stats_page.connect(lambda: (self.stack.setCurrentWidget(stats_page), stats_page.update()))
+        tab.stats_page.connect(lambda: (self.stack.setCurrentWidget(self.stats_page), self.stats_page.update()))
 
         
         layout.addWidget(self.stack)
@@ -64,7 +65,7 @@ class MainWindow(QMainWindow):
         if self.game_thread and self.game_thread.is_alive():
             self.game_thread.join()
         
-        self.game_thread = threading.Thread(target=alantic, args=(self.game_state,), daemon=False)
+        self.game_thread = threading.Thread(target=self._alantic_game_thread, daemon=False)
         self.game_thread.start()
 
     def play_pacific(self):
@@ -72,8 +73,22 @@ class MainWindow(QMainWindow):
         if self.game_thread and self.game_thread.is_alive():
             self.game_thread.join()
         
-        self.game_thread = threading.Thread(target=pacific, args=(self.game_state,), daemon=False)
+        self.game_thread = threading.Thread(target=self._pacific_game_thread, daemon=False)
         self.game_thread.start()
+
+    def _alantic_game_thread(self):
+        """Run atlantic game and refresh stats when complete."""
+        alantic(self.game_state)
+        # Refresh stats page after game completes
+        if self.stats_page:
+            self.stats_page.refresh_charts()
+
+    def _pacific_game_thread(self):
+        """Run pacific game and refresh stats when complete."""
+        pacific(self.game_state)
+        # Refresh stats page after game completes
+        if self.stats_page:
+            self.stats_page.refresh_charts()
     
     def update_game_state(self, name: str):
         """Update game_state with player data when name is submitted."""

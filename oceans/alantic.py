@@ -138,8 +138,11 @@ def alantic(game_state=None) -> dict:
         wave_on_text = font.render(f"wave: {wave}", True, (255, 255, 255))
         screen.blit(wave_on_text, (200, 50))
 
+        score_text = font.render(f"score: {score}", True, (255, 255, 255))
+        screen.blit(score_text, (350, 50))
+
         time_left_text = font.render(f"Time left: {math.ceil(math.ceil(wave_interval-wave_timer)/1000)}", True, (255,255,255))
-        screen.blit(time_left_text, (350, 50))
+        screen.blit(time_left_text, (500, 50))
 
         
         if wave_timer >= wave_interval:

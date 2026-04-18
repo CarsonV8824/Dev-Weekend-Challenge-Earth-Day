@@ -71,8 +71,8 @@ class Stats(QWidget):
         self.ax1.tick_params(axis='x', rotation=45)
 
         self.ax2.clear()
-        self.alantic_wins = Database.get_top_10_atlantic_wins()
-        sns.barplot(data=self.alantic_wins, x="names", y="atlantic wins", ax=self.ax2)
+        self.atlantic_wins = Database.get_top_10_atlantic_wins()
+        sns.barplot(data=self.atlantic_wins, x="names", y="atlantic wins", ax=self.ax2)
         self.ax2.set_title("Top 10 Atlantic Wins")
         self.ax2.tick_params(axis='x', rotation=45)
 

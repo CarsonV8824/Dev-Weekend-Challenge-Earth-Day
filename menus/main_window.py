@@ -10,7 +10,7 @@ from menus.home import Home
 from menus.map import Map
 from menus.stats import Stats
 
-from oceans.alantic import alantic
+from oceans.atlantic import atlantic
 from oceans.pacific import pacific
 
 from data.database import Database
@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
 
         map_page = Map()
         self.stack.addWidget(map_page)
-        map_page.alantic_map.connect(self.play_alantic)
+        map_page.atlantic_map.connect(self.play_atlantic)
         map_page.pacific_map.connect(self.play_pacific)
 
         self.stats_page = Stats()
@@ -60,12 +60,12 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.stack)
         self.setCentralWidget(container)
 
-    def play_alantic(self):
+    def play_atlantic(self):
         # Wait for previous game to finish
         if self.game_thread and self.game_thread.is_alive():
             self.game_thread.join()
         
-        self.game_thread = threading.Thread(target=self._alantic_game_thread, daemon=False)
+        self.game_thread = threading.Thread(target=self._atlantic_game_thread, daemon=False)
         self.game_thread.start()
 
     def play_pacific(self):
@@ -76,9 +76,9 @@ class MainWindow(QMainWindow):
         self.game_thread = threading.Thread(target=self._pacific_game_thread, daemon=False)
         self.game_thread.start()
 
-    def _alantic_game_thread(self):
+    def _atlantic_game_thread(self):
         """Run atlantic game and refresh stats when complete."""
-        alantic(self.game_state)
+        atlantic(self.game_state)
         # Refresh stats page after game completes
         if self.stats_page:
             self.stats_page.refresh_charts()

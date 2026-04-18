@@ -31,7 +31,7 @@ this does not draw correctly. incriment = 12
 for row in screen_colors:
     pygame.draw.rect(screen, (row[1], row[2], row[3]), rect=(0, SCREEN_HEIGHT//incriment, SCREEN_WIDTH, SCREEN_HEIGHT//len(screen_colors)))
 incriment /= 2
-Look at alantic.json
+Look at atlantic.json
 ```
 
 **AI Response:**
@@ -45,18 +45,18 @@ Fixed two issues:
 **User Prompt:**
 ```
 with open(path, "r") as f:
-FileNotFoundError: [Errno 2] No such file or directory: 'json\alantic.json'
+FileNotFoundError: [Errno 2] No such file or directory: 'json\atlantic.json'
 ```
 
 **AI Response:**
-The file path was incomplete. The correct approach uses `os.path.join("oceans", "json", "alantic.json")` to build the proper path relative to the project root. Ensure the working directory is set to the project root before running the application.
+The file path was incomplete. The correct approach uses `os.path.join("oceans", "json", "atlantic.json")` to build the proper path relative to the project root. Ensure the working directory is set to the project root before running the application.
 
 ---
 
 ### Request 5: Generate Ocean Facts
 **User Prompt:**
 ```
-in facts.json, generate me facts about the Alantic and Pacific ocean
+in facts.json, generate me facts about the Atlantic and Pacific ocean
 ```
 
 **AI Response:**
@@ -92,7 +92,7 @@ Added a condition to pause trash movement during fact display. Changed the trash
 ### Request 8: Center Fun Fact Text
 **User Prompt:**
 ```
-the fun fact text is not centerd on the middle of the screen
+the fun fact text is not centered on the middle of the screen
 ```
 
 **AI Response:**
@@ -137,7 +137,7 @@ edit my readme.md and see if the Writing Quality Is the submission post clearly 
 Reviewed and substantially improved README.md for submission quality:
 
 **Issues Fixed:**
-- **Spelling errors:** 20+ typos corrected (drestoyed→destroyed, Copiolit→Copilot, releated→related, Alantic→Atlantic, braininstorming→brainstorming, etc.)
+- **Spelling errors:** 20+ typos corrected
 - **Grammar & clarity:** Rewrote awkward phrasing for better flow
 - **Engagement:** Made the project description more exciting and compelling
 - **Structure:** Added complete bullet points for goals section, better section formatting, clearer library descriptions

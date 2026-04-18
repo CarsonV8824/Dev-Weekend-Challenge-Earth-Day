@@ -8,16 +8,16 @@ from sprites.trash import Trash
 from sprites.turtle import Turtle
 from sprites.player import Player 
 
-from oceans.facts import fact_for_alantic
+from oceans.facts import fact_for_atlantic
 
-def alantic(game_state=None) -> dict:
+def atlantic(game_state=None) -> dict:
     pygame.init()
     
     info = pygame.display.Info()
     SCREEN_WIDTH = info.current_w
     SCREEN_HEIGHT = info.current_h
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    path = os.path.join("oceans", "json", "alantic.json")
+    path = os.path.join("oceans", "json", "atlantic.json")
     with open(path, "r") as f:
         screen_colors = json.load(f)
 
@@ -29,9 +29,9 @@ def alantic(game_state=None) -> dict:
 
     trash_group = pygame.sprite.Group()
 
-    tutrle_group = pygame.sprite.Group()
+    turtle_group = pygame.sprite.Group()
     turtle = Turtle(SCREEN_WIDTH//1.2, SCREEN_HEIGHT//2)
-    tutrle_group.add(turtle)
+    turtle_group.add(turtle)
 
     player_group = pygame.sprite.Group()
     player = Player(SCREEN_WIDTH//2, SCREEN_HEIGHT//2)
@@ -79,7 +79,7 @@ def alantic(game_state=None) -> dict:
         
             
 
-        turtle = list(tutrle_group)[0]
+        turtle = list(turtle_group)[0]
         hits = pygame.sprite.spritecollide(turtle, trash_group, True)
         for trash in hits:
             if trash:
@@ -107,8 +107,8 @@ def alantic(game_state=None) -> dict:
         # Only update trash if not showing a fact
         if not showing_fact:
             for trash in trash_group:
-                trash.update(list(tutrle_group)[0].get_coords())
-        tutrle_group.update()
+                trash.update(list(turtle_group)[0].get_coords())
+        turtle_group.update()
         
         # Update player with screen boundaries
         for player in player_group:
@@ -129,7 +129,7 @@ def alantic(game_state=None) -> dict:
             y_pos += stripe_height
 
         trash_group.draw(screen)
-        tutrle_group.draw(screen)
+        turtle_group.draw(screen)
         player_group.draw(screen)
 
         lives_text = font.render(f"lives: {lives}", True, (255,255,255))
@@ -151,7 +151,7 @@ def alantic(game_state=None) -> dict:
             wave_timer = 0
             showing_fact = True
             fact_timer = 0
-            current_fact = fact_for_alantic()
+            current_fact = fact_for_atlantic()
         
         # Display fact if currently showing one
         if showing_fact:
@@ -170,16 +170,16 @@ def alantic(game_state=None) -> dict:
             # add to stats
             game_state["score"] += score
             game_state["lives"] = lives
-            game_state["alantic_wins"] += 1
+            game_state["atlantic_wins"] += 1
         if not win and not closed:
             # reset stats because you lost
             game_state["score"] = 0
             game_state["lives"] = 3
-            game_state["alantic_wins"] = 0
+            game_state["atlantic_wins"] = 0
     else:
         pass
 
 if __name__ == "__main__":
     pygame.init()
-    alantic()
+    atlantic()
     pygame.quit()

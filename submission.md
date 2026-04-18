@@ -57,7 +57,7 @@ python main.py
 
 **GitHub Copilot Integration**: Copilot accelerated development by reducing debugging time for game timing issues, UI synchronization problems, and JSON file path resolution. It also optimized PySide6 styling patterns and suggested improvements to non-blocking state management, allowing focus on gameplay mechanics rather than boilerplate code.
 
-See [AI Usage Log](copiolit_usage.md) for detailed optimization notes.
+See [AI Usage Log](copilot_usage.md) for detailed optimization notes.
 
 ## Prize Categories
 

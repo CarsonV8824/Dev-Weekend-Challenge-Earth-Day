@@ -2,7 +2,7 @@ import json
 import random
 import os
 
-def fact_for_alantic() -> str:
+def fact_for_atlantic() -> str:
     path = os.path.join("oceans", "json", "atlantic_facts.json")
     with open(path, "r") as f:
         facts = json.load(f)

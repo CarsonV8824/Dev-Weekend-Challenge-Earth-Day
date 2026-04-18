@@ -37,7 +37,7 @@ Compare Each other's Stats of who Played in the stats tab! Battle to see who has
 
 ## GitHub Copilot Usage
 
-GitHub Copilot accelerated development by reducing debugging time and streamlining PySide6 menu styling, allowing more focus on game mechanics and feature development. Detailed usage documentation: [AI Usage Log](ai_usage.md)
+GitHub Copilot accelerated development by reducing debugging time and streamlining PySide6 menu styling, allowing more focus on game mechanics and feature development. Detailed usage documentation: [AI Usage Log](copilot_usage.md)
 
 ## Credits
 

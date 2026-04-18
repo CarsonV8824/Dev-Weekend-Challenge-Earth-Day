@@ -25,13 +25,12 @@ def pacific(game_state:dict) -> dict:
     running = True
 
     spawn_timer = 0
-    spawn_interval = 250  # milliseconds
-
+    spawn_interval = 1000  # milliseconds
     trash_group = pygame.sprite.Group()
 
-    tutrle_group = pygame.sprite.Group()
+    turtle_group = pygame.sprite.Group()
     turtle = Turtle(SCREEN_WIDTH//1.2, SCREEN_HEIGHT//2)
-    tutrle_group.add(turtle)
+    turtle_group.add(turtle)
 
     player_group = pygame.sprite.Group()
     player = Player(SCREEN_WIDTH//2, SCREEN_HEIGHT//2)
@@ -77,7 +76,7 @@ def pacific(game_state:dict) -> dict:
             spawn_timer = 0  # Reset timer
             
 
-        turtle = list(tutrle_group)[0]
+        turtle = list(turtle_group)[0]
         hits = pygame.sprite.spritecollide(turtle, trash_group, True)
         for trash in hits:
             if trash:
@@ -104,8 +103,8 @@ def pacific(game_state:dict) -> dict:
         # Only update trash if not showing a fact
         if not showing_fact:
             for trash in trash_group:
-                trash.update(list(tutrle_group)[0].get_coords())
-        tutrle_group.update()
+                trash.update(list(turtle_group)[0].get_coords())
+        turtle_group.update()
         
         # Update player with screen boundaries
         for player in player_group:
@@ -126,7 +125,7 @@ def pacific(game_state:dict) -> dict:
             y_pos += stripe_height
 
         trash_group.draw(screen)
-        tutrle_group.draw(screen)
+        turtle_group.draw(screen)
         player_group.draw(screen)
 
         lives_text = font.render(f"lives: {lives}", True, (255,255,255))

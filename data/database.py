@@ -18,7 +18,7 @@ class Database:
                 id INTEGER PRIMARY KEY,
                 score INTEGER,
                 lives INTEGER,
-                alantic_wins INTEGER,
+                atlantic_wins INTEGER,
                 pacific_wins INTEGER,
                 name TEXT         
                 );
@@ -32,8 +32,8 @@ class Database:
         self.connection.close()
 
     def in_data(self, data:dict) -> None:
-        self.cursor.execute("""INSERT INTO game_state (score, lives, alantic_wins, pacific_wins, name) 
-                            VALUES (?,?,?,?,?)""", (data["score"], data["lives"], data["alantic_wins"], data["pacific_wins"], data["name"],))
+        self.cursor.execute("""INSERT INTO game_state (score, lives, atlantic_wins, pacific_wins, name) 
+                            VALUES (?,?,?,?,?)""", (data["score"], data["lives"], data["atlantic_wins"], data["pacific_wins"], data["name"],))
         self.connection.commit()
 
     def get_d_by_name(self, name:str) -> dict:
@@ -43,7 +43,7 @@ class Database:
             return {
                 "score": data[1],
                 "lives": data[2],
-                "alantic_wins": data[3],
+                "atlantic_wins": data[3],
                 "pacific_wins": data[4],
                 "name": data[5]
             }
@@ -61,7 +61,7 @@ class Database:
     @staticmethod
     def get_top_10_atlantic_wins() -> pd.DataFrame:
         with Database() as d:
-            d.cursor.execute("""SELECT name, MAX(alantic_wins) as atlantic_wins FROM game_state GROUP BY name ORDER BY MAX(alantic_wins) DESC LIMIT 10""")
+            d.cursor.execute("""SELECT name, MAX(atlantic_wins) as atlantic_wins FROM game_state GROUP BY name ORDER BY MAX(atlantic_wins) DESC LIMIT 10""")
             data = d.cursor.fetchall()
             dataframe = pd.DataFrame(data, columns=["names", "atlantic wins"])
         return dataframe

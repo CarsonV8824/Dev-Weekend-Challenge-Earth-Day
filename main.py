@@ -19,7 +19,6 @@ def main():
     app = QApplication(sys.argv)
     app.setStyleSheet(get_style_file_stuff())
     window = MainWindow(def_state)
-    window.resize(400, 300)
     window.show()
     app.exec()
     Database.insert_data(window.game_state)

@@ -9,6 +9,8 @@ https://dev.to/devteam/join-our-dev-weekend-challenge-1000-in-prizes-across-ten-
 
 ## Project Idea
 
+### Franklin and the Diver
+
 A Game where users defend against trash to save a turtle from being drestoyed by the trash
 
 ## Libarys and Tool's

@@ -2,16 +2,22 @@ import pygame
 import random
 import time
 import math
+import json
+import os
 
 from sprites.trash import Trash
 from sprites.turtle import Turtle
 from sprites.player import Player 
 
-def alantic() -> dict:
+def alantic(game_state:dict) -> None:
+    pygame.init()
     info = pygame.display.Info()
     SCREEN_WIDTH = info.current_w
     SCREEN_HEIGHT = info.current_h
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    path = os.path.join("oceans", "json", "alantic.json")
+    with open(path, "r") as f:
+        screen_colors = json.load(f)
     clock = pygame.time.Clock()
     running = True
 
@@ -30,8 +36,8 @@ def alantic() -> dict:
 
     font = pygame.font.Font(None, 40)
 
-    lives = 3
-    score = 0
+    lives = game_state["lives"]
+    score = game_state["score"]
 
     wave = 1
     wave_timer = 0
@@ -79,6 +85,7 @@ def alantic() -> dict:
         # Handle player catching trash
         if player_hit:
             for trash in player_hit:
+                score += 1
                 trash_group.remove(trash)
                 print("Caught trash!")
 
@@ -98,6 +105,12 @@ def alantic() -> dict:
             player.update(SCREEN_WIDTH, SCREEN_HEIGHT)
         
         screen.fill("purple")
+        stripe_height = SCREEN_HEIGHT // len(screen_colors)
+        y_pos = 0
+        for row in screen_colors:
+            pygame.draw.rect(screen, (row[1], row[2], row[3]), rect=(0, y_pos, SCREEN_WIDTH, stripe_height))
+            y_pos += stripe_height
+
         trash_group.draw(screen)
         tutrle_group.draw(screen)
         player_group.draw(screen)
@@ -114,13 +127,19 @@ def alantic() -> dict:
         pygame.display.flip()  
 
     if win:
-        score = score
-    if not score:
-        score = 0
-    
-    return {"score":score, "lives":lives, "win":win}
+        # add to stats
+        game_state["score"] += score
+        game_state["lives"] = lives
+        game_state["alantic_wins"] += 1
+    if not win:
+        # reset stats becuase you lost
+        game_state["score"] = 0
+        game_state["lives"] = 3
+        game_state["alantic_wins"]
+    print(game_state)
+    pygame.quit()
 
 if __name__ == "__main__":
-    pygame.init()
+    
     alantic()
-    pygame.quit()
+    

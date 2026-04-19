@@ -28,7 +28,7 @@ python main.py
 
 ## Code
 
-{% github CarsonV8824/Dev-Weekend-Challenge-Earth-Day %}
+[GitHub Repository](https://github.com/CarsonV8824/Dev-Weekend-Challenge-Earth-Day)
 
 **Project Structure**:
 - `menus/` — PySide6 UI components (Home, Map, Stats pages, Leaderboard)

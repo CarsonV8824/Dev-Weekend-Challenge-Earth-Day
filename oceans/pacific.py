@@ -18,6 +18,13 @@ def pacific(game_state:dict) -> dict:
     SCREEN_WIDTH = info.current_w
     SCREEN_HEIGHT = info.current_h
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Franklin and the Diver")
+    
+    # Set window icon
+    icon_path = os.path.join("assets", "Net.png")
+    if os.path.exists(icon_path):
+        icon = pygame.image.load(icon_path)
+        pygame.display.set_icon(icon)
     path = os.path.join("oceans", "json", "pacific.json")
     with open(path, "r") as f:
         screen_colors = json.load(f)
@@ -40,6 +47,7 @@ def pacific(game_state:dict) -> dict:
 
     lives = game_state["lives"] if game_state else 3
     score = game_state["score"] if game_state else 0
+    pacific_wins = game_state["pacific_wins"] if game_state else 0
 
     wave = 1
     wave_timer = 0
@@ -137,8 +145,11 @@ def pacific(game_state:dict) -> dict:
         score_text = font.render(f"score: {score}", True, (255, 255, 255))
         screen.blit(score_text, (350, 50))
 
+        pacific_wins_text = font.render(f"pacific wins: {pacific_wins}", True, (255, 255, 255))
+        screen.blit(pacific_wins_text, (650, 50))
+
         time_left_text = font.render(f"Time left: {math.ceil(math.ceil(wave_interval-wave_timer)/1000)}", True, (255,255,255))
-        screen.blit(time_left_text, (500, 50))
+        screen.blit(time_left_text, (1050, 50))
 
         
         if wave_timer >= wave_interval:

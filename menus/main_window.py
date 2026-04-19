@@ -2,8 +2,11 @@ from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget,
     QVBoxLayout, QStackedWidget, QPushButton, QLabel
 )
+from PySide6.QtCore import Signal, QObject
+from PySide6.QtGui import QIcon
 import sys
 import threading
+import os
 
 from menus.tab import Tab
 from menus.home import Home
@@ -16,6 +19,10 @@ from oceans.pacific import pacific
 from data.database import Database
 from data.state import state
 
+class GameThreadSignals(QObject):
+    """Signals for game thread completion."""
+    game_finished = Signal()
+
 class MainWindow(QMainWindow):
     def __init__(self, game_state:dict):
         self.game_state:dict = game_state
@@ -23,10 +30,15 @@ class MainWindow(QMainWindow):
         self.stack = None
         self.game_thread = None
         self.stats_page = None
+        self.game_signals = GameThreadSignals()
 
         super().__init__()
 
-        self.setWindowTitle("Stacked Widget Example")
+        self.setWindowTitle("Franklin and the Diver")
+        # Set window icon
+        icon_path = os.path.join("assets", "Net.png")
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
 
         # --- Central container widget ---
         container = QWidget()
@@ -50,7 +62,10 @@ class MainWindow(QMainWindow):
         map_page.pacific_map.connect(self.play_pacific)
 
         self.stats_page = Stats()
-        self.stack.addWidget(self.stats_page)  
+        self.stack.addWidget(self.stats_page)
+        
+        # Connect game completion signal to stats refresh
+        self.game_signals.game_finished.connect(self.stats_page.refresh_charts)
 
         tab.home_page.connect(lambda: self.stack.setCurrentWidget(self.home_page))
         tab.map_page.connect(lambda: self.stack.setCurrentWidget(map_page))   
@@ -79,16 +94,14 @@ class MainWindow(QMainWindow):
     def _atlantic_game_thread(self):
         """Run atlantic game and refresh stats when complete."""
         atlantic(self.game_state)
-        # Refresh stats page after game completes
-        if self.stats_page:
-            self.stats_page.refresh_charts()
+        # Emit signal to refresh stats on main thread
+        self.game_signals.game_finished.emit()
 
     def _pacific_game_thread(self):
         """Run pacific game and refresh stats when complete."""
         pacific(self.game_state)
-        # Refresh stats page after game completes
-        if self.stats_page:
-            self.stats_page.refresh_charts()
+        # Emit signal to refresh stats on main thread
+        self.game_signals.game_finished.emit()
     
     def update_game_state(self, name: str):
         """Update game_state with player data when name is submitted."""

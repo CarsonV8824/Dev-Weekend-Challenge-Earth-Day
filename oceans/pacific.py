@@ -9,6 +9,7 @@ from sprites.turtle import Turtle
 from sprites.player import Player 
 
 from data.state import state
+from data.database import Database
 
 from oceans.facts import fact_for_pacific
 
@@ -179,5 +180,6 @@ def pacific(game_state:dict) -> dict:
         game_state["lives"] = 3
         game_state["pacific_wins"] = 0
     print(game_state)
+    Database.insert_data(game_state)
     pygame.quit()
     

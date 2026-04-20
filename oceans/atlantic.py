@@ -10,6 +10,8 @@ from sprites.player import Player
 
 from oceans.facts import fact_for_atlantic
 
+from data.database import Database
+
 def atlantic(game_state=None) -> dict:
     pygame.init()
     
@@ -189,6 +191,8 @@ def atlantic(game_state=None) -> dict:
             game_state["atlantic_wins"] = 0
     else:
         pass
+
+    Database.insert_data(game_state)
 
 if __name__ == "__main__":
     pygame.init()

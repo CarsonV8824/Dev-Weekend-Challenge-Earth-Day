@@ -9,8 +9,12 @@ from menus.main_window import MainWindow
 
 from data.database import Database
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 def get_style_file_stuff():
-    with open(os.path.join("assets", "styles.css"), encoding='utf-8') as f:
+    style_path = os.path.join(PROJECT_ROOT, "assets", "styles.css")
+    with open(style_path, encoding='utf-8') as f:
         data = f.read()
     return data
 

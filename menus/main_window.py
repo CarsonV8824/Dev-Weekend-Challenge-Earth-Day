@@ -19,6 +19,9 @@ from oceans.pacific import pacific
 from data.database import Database
 from data.state import state
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class GameThreadSignals(QObject):
     """Signals for game thread completion."""
     game_finished = Signal()
@@ -36,7 +39,7 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("Franklin and the Diver")
         # Set window icon
-        icon_path = os.path.join("assets", "Net.png")
+        icon_path = os.path.join(PROJECT_ROOT, "assets", "Net.png")
         if os.path.exists(icon_path):
             self.setWindowIcon(QIcon(icon_path))
 

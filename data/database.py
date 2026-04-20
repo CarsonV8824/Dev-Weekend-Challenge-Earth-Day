@@ -5,9 +5,12 @@ import pandas as pd
 
 from data.state import state
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class Database:
     def __init__(self):
-        self.file_path = os.path.join("data", "Franklin_and_the_Diver.db")
+        self.file_path = os.path.join(PROJECT_ROOT, "data", "Franklin_and_the_Diver.db")
         self.connection = sqlite3.connect(self.file_path)
         self.cursor = self.connection.cursor()
         self.make_tables()

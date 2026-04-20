@@ -12,6 +12,9 @@ from oceans.facts import fact_for_atlantic
 
 from data.database import Database
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 def atlantic(game_state=None) -> dict:
     pygame.init()
     
@@ -22,11 +25,11 @@ def atlantic(game_state=None) -> dict:
     pygame.display.set_caption("Franklin and the Diver")
     
     # Set window icon
-    icon_path = os.path.join("assets", "Net.png")
+    icon_path = os.path.join(PROJECT_ROOT, "assets", "Net.png")
     if os.path.exists(icon_path):
         icon = pygame.image.load(icon_path)
         pygame.display.set_icon(icon)
-    path = os.path.join("oceans", "json", "atlantic.json")
+    path = os.path.join(PROJECT_ROOT, "oceans", "json", "atlantic.json")
     with open(path, "r") as f:
         screen_colors = json.load(f)
 

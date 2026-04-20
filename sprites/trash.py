@@ -3,11 +3,14 @@ import random
 import os
 import math
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class Trash(pygame.sprite.Sprite):
     def __init__(self, x:int, y:int, angle:float=45, speed:int=4):
         self.images = ["Bottle.png", "Plastic_Bag.png", ]
         self.chossen_image = random.choice(self.images)
-        self.image_path = os.path.join("assets", self.chossen_image)
+        self.image_path = os.path.join(PROJECT_ROOT, "assets", self.chossen_image)
         super().__init__()
         # Load the PNG image
         self.original_image = pygame.image.load(self.image_path).convert_alpha()

@@ -2,11 +2,14 @@ import pygame
 import random
 import os
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class Turtle(pygame.sprite.Sprite):
     def __init__(self, x:int, y:int):
         self.images = ["Turtle.png"]
         self.chossen_image = random.choice(self.images)
-        self.image_path = os.path.join("assets", self.chossen_image)
+        self.image_path = os.path.join(PROJECT_ROOT, "assets", self.chossen_image)
         super().__init__()
         # Load the PNG image
         self.image = pygame.image.load(self.image_path).convert_alpha()

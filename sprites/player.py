@@ -1,10 +1,13 @@
 import pygame
 import os
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class Player(pygame.sprite.Sprite):
     def __init__(self,x:int=400, y:int=400):
         super().__init__()
-        self.image_path = os.path.join("assets", "Net.png")
+        self.image_path = os.path.join(PROJECT_ROOT, "assets", "Net.png")
         self.image = pygame.image.load(self.image_path).convert_alpha()
         # Optionally scale it
         self.image = pygame.transform.scale(self.image, (50, 50))

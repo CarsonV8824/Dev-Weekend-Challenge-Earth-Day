@@ -11,6 +11,9 @@ import os
 from data.database import Database
 from data.state import state
 
+# Get project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 class Home(QWidget):
     name_submitted = Signal(str)  # Signal to emit when name is saved
     
@@ -42,7 +45,7 @@ class Home(QWidget):
         main_layout.addStretch()
 
     def get_home_text(self):
-        path = os.path.join("menus", "html", "home.html")
+        path = os.path.join(PROJECT_ROOT, "menus", "html", "home.html")
         with open(path) as f:
             data = f.read()
         return data

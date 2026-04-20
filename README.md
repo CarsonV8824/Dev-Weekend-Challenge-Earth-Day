@@ -1,45 +1,79 @@
-# Dev-Weekend-Challenge-Earth-Day
-With Earth Day just around the corner, we welcome you to build something inspired by the planet.
+*This is a submission for [Weekend Challenge: Earth Day Edition](https://dev.to/challenges/weekend-2026-04-16)*
 
-Please interpret this prompt however you’d like. Honoring your favorite green spaces? Solving carbon emissions? Reimagining our entire planetary relationship? Any angle is fair game!
+## What I Built
 
-### Link to website
+**Franklin and the Diver** is an engaging ocean-themed action game that combines entertainment with environmental education. Players control a net-wielding diver protecting Franklin the turtle from incoming pollution in two iconic ocean zones: the Atlantic and Pacific.
 
-https://dev.to/devteam/join-our-dev-weekend-challenge-1000-in-prizes-across-ten-winners-submissions-due-april-20-at-47i1?bb=263087
+The game features wave-based progression across 3 intense levels per ocean, with escalating difficulty. Between waves, educational ocean facts display seamlessly without interrupting gameplay. Players build competitive scores tracked across a multiplayer leaderboard where they can compare achievements with other players.
 
-## Project Idea
+**Goal**: Create an engaging educational game that inspires environmental awareness while showcasing technical skills in game development, UI design, and data persistence.
 
-### Franklin and the Diver
+## Demo
 
-Protect a turtle from ocean pollution in this engaging action game! Players control a net-wielding diver defending Franklin the turtle against incoming trash in two iconic ocean zones: the Atlantic and Pacific. Each ocean presents unique challenges across 3 intense waves.
+![Gameplay](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4n9ywmnn491jubkspab1.png)
 
-Between waves, educational ocean facts appear—connecting gameplay with real environmental awareness. The difficulty ramps up with each wave, keeping players engaged and challenged. 
 
-Compare Each other's Stats of who Played in the stats tab! Battle to see who has the highest scores!
+![Leaderboard Tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/aoyj5l2ffbtxtw29dr8k.png)
 
-### Target Audience and Goals
 
-**Target Audience:** Players of all ages, with emphasis on younger audiences who enjoy fun, educational gaming experiences.
+![Map Tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/sw9veh4d9ze1s0h2bzyu.png)
 
-**Project Goals:**
-- Create an engaging, fast-paced game that entertains players
-- Educate users about ocean conservation and environmental issues through sea-themed gameplay
-- Combine entertainment with learning to inspire environmental awareness
 
-## Libraries and Tools
+![Home Tab](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iagw7mncgdhired9t1s2.png)
 
-- **PySide6** — Menu interfaces and UI
-- **Pygame** — Game engine and loop
-- **SQLite3** — Data persistence and score tracking
-- **Matplotlib & Seaborn** — Local scoreboards and statistics visualization
-- **Pandas** — Data manipulation for the graphs
-- **GitHub Copilot** — Code assistance, debugging optimization, and UI styling refinement
+To run locally:
 
-## GitHub Copilot Usage
+```bash
+git clone https://github.com/CarsonV8824/Dev-Weekend-Challenge-Earth-Day.git
+cd Dev-Weekend-Challenge-Earth-Day
+pip install -r requirements.txt
+python main.py
+```
 
-GitHub Copilot accelerated development by reducing debugging time and streamlining PySide6 menu styling, allowing more focus on game mechanics and feature development. Detailed usage documentation: [AI Usage Log](copilot_usage.md)
+**Gameplay Overview**:
+1. Enter your name on the home screen
+2. Select Atlantic or Pacific ocean
+3. Move your net to catch falling trash before it hits the turtle
+4. Catch trash to increase score and complete waves
+5. Survive 3 waves to win and unlock the leaderboard
 
-## Credits
+## Code
 
-- Graphics and assets sourced from a classmate's previous school project
+[GitHub Repository](https://github.com/CarsonV8824/Dev-Weekend-Challenge-Earth-Day)
 
+**Project Structure**:
+- `menus/` — PySide6 UI components (Home, Map, Stats pages, Leaderboard)
+- `oceans/` — Game logic for Atlantic and Pacific modes
+- `sprites/` — Pygame sprite classes (Player, Turtle, Trash)
+- `data/` — SQLite database management and game state
+- `assets/` — Styling and visual resources
+
+## How I Built It
+
+**Technology Stack**: PySide6 (UI), Pygame (game engine), SQLite3 (data), Matplotlib & Seaborn (stats), Pandas (data analysis), GitHub Copilot (development assistance)
+
+**Key Technical Approach**:
+
+1. **Non-Blocking Game Pauses** — Replaced blocking `time.sleep()` calls with delta-time based timers, allowing graceful pauses during fact displays without freezing the UI or game thread.
+
+2. **Sprite-Based Collision System** — Leveraged Pygame's sprite groups and collision detection for efficient player-trash interactions and smooth movement without lag.
+
+3. **Wave Difficulty Progression** — Implemented dynamic difficulty scaling where spawn intervals decrease and wave durations increase, creating natural progression curves.
+
+4. **Real-Time Leaderboard** — Combined SQLite GROUP BY queries with Pandas DataFrames to track top-10 rankings across three categories (score, Atlantic wins, Pacific wins), updating instantly after each game.
+
+5. **Theme-Based Architecture** — Each ocean loads unique color palettes from JSON files, enabling visual customization without code changes and preventing duplication.
+
+6. **Threaded Game Execution** — Game windows run in separate threads, preventing UI freezing and allowing seamless menu navigation without application restart.
+
+**GitHub Copilot Integration**: Copilot accelerated development by reducing debugging time for game timing issues, UI synchronization problems, and JSON file path resolution. It also optimized PySide6 styling patterns and suggested improvements to non-blocking state management, allowing focus on gameplay mechanics rather than boilerplate code.
+
+See copilot_usage.md for detailed optimization notes on GitHub.
+
+## Prize Categories
+
+**Best Use of GitHub Copilot** — GitHub Copilot significantly streamlined development through intelligent debugging, code optimization suggestions, and architectural improvements. This enabled faster iteration on core gameplay features and complex UI state management.
+
+---
+
+Thanks for considering this submission! 
